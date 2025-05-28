@@ -17,3 +17,9 @@ app.use('/api/medalhas', medalhasRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
+
+app.get('/olimpiadas', async (req, res) => {
+  const { data, error } = await supabase.from('olimpiadas').select('*');
+  if (error) return res.status(500).json({ error: error.message });
+  res.json(data);
+});
