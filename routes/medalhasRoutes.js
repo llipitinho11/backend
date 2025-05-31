@@ -1,9 +1,14 @@
 import express from 'express';
-const router = express.Router();
-const controller = require('../controllers/medalhasController');
+import { 
+  getMedalhas, 
+  createMedalha, 
+  deleteMedalha 
+} from '../controllers/medalhasController.js';
 
-router.get('/', controller.getMedalhas);
-router.post('/', controller.createMedalha);
-router.delete('/:id', controller.deleteMedalha);
+const router = express.Router();
+
+router.get('/', getMedalhas);
+router.post('/', createMedalha);
+router.delete('/:id', deleteMedalha);
 
 export default router;

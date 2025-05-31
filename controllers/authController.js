@@ -1,6 +1,6 @@
-const pool = require('../db');
+import pool from '../db.js';
 
-exports.login = async (req, res) => {
+export const login = async (req, res) => {
   const { username, senha } = req.body;
 
   try {

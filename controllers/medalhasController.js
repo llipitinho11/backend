@@ -1,9 +1,12 @@
-const pool = require('../db');
-const { createClient } = require('@supabase/supabase-js');
+import pool from '../db.js';
+import { createClient } from '@supabase/supabase-js';
 
-const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE);
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE
+);
 
-exports.getMedalhas = async (req, res) => {
+export const getMedalhas = async (req, res) => {
   const result = await pool.query(
     `SELECT medalhas.*, olimpiadas.nome AS olimpiada_nome 
      FROM medalhas 
@@ -12,10 +15,9 @@ exports.getMedalhas = async (req, res) => {
   res.json(result.rows);
 };
 
-exports.createMedalha = async (req, res) => {
+export const createMedalha = async (req, res) => {
   const { olimpiada_id, ano, resultado, certificadoBase64, fileName } = req.body;
 
-  // Upload do certificado
   const { data, error } = await supabase.storage
     .from('certificados')
     .upload(fileName, Buffer.from(certificadoBase64, 'base64'), {
@@ -36,7 +38,7 @@ exports.createMedalha = async (req, res) => {
   res.json(result.rows[0]);
 };
 
-exports.deleteMedalha = async (req, res) => {
+export const deleteMedalha = async (req, res) => {
   const { id } = req.params;
   await pool.query('DELETE FROM medalhas WHERE id = $1', [id]);
   res.json({ message: 'Medalha deletada' });

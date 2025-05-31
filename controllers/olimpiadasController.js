@@ -1,11 +1,11 @@
-const pool = require('../db');
+import pool from '../db.js';
 
-exports.getOlimpiadas = async (req, res) => {
+export const getOlimpiadas = async (req, res) => {
   const result = await pool.query('SELECT * FROM olimpiadas');
   res.json(result.rows);
 };
 
-exports.createOlimpiada = async (req, res) => {
+export const createOlimpiada = async (req, res) => {
   const { nome, logo_url, materia } = req.body;
   const result = await pool.query(
     'INSERT INTO olimpiadas (nome, logo_url, materia) VALUES ($1, $2, $3) RETURNING *',
@@ -14,7 +14,7 @@ exports.createOlimpiada = async (req, res) => {
   res.json(result.rows[0]);
 };
 
-exports.updateOlimpiada = async (req, res) => {
+export const updateOlimpiada = async (req, res) => {
   const { id } = req.params;
   const { nome, logo_url, materia } = req.body;
   const result = await pool.query(
@@ -24,7 +24,7 @@ exports.updateOlimpiada = async (req, res) => {
   res.json(result.rows[0]);
 };
 
-exports.deleteOlimpiada = async (req, res) => {
+export const deleteOlimpiada = async (req, res) => {
   const { id } = req.params;
   await pool.query('DELETE FROM olimpiadas WHERE id = $1', [id]);
   res.json({ message: 'Olimpíada deletada' });

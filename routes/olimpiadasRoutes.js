@@ -1,10 +1,16 @@
 import express from 'express';
-const router = express.Router();
-const controller = require('../controllers/olimpiadasController');
+import { 
+  getOlimpiadas, 
+  createOlimpiada, 
+  updateOlimpiada, 
+  deleteOlimpiada 
+} from '../controllers/olimpiadasController.js';
 
-router.get('/', controller.getOlimpiadas);
-router.post('/', controller.createOlimpiada);
-router.put('/:id', controller.updateOlimpiada);
-router.delete('/:id', controller.deleteOlimpiada);
+const router = express.Router();
+
+router.get('/', getOlimpiadas);
+router.post('/', createOlimpiada);
+router.put('/:id', updateOlimpiada);
+router.delete('/:id', deleteOlimpiada);
 
 export default router;
