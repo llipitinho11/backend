@@ -1,4 +1,4 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
 const controller = require('../controllers/olimpiadasController');
 
@@ -7,4 +7,4 @@ router.post('/', controller.createOlimpiada);
 router.put('/:id', controller.updateOlimpiada);
 router.delete('/:id', controller.deleteOlimpiada);
 
-module.exports = router;
+export default router;
